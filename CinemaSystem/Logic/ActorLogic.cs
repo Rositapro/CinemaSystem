@@ -12,27 +12,60 @@ namespace CinemaSystem.Logic
     public class ActorLogic
     {
         // 1. MÉTODO LEER (READ) - Trae todos los actores activos
+        //public DataTable Listar()
+        //{
+        //    DataTable dt = new DataTable();
+        //    using (SqlConnection con = Connection.GetConexion())
+        //    {
+        //        // Solo traemos los Activos (Ocultamos los borrados lógicamente)
+        //        string query = "SELECT * FROM Actor WHERE status = 'Activo'";
+        //        SqlCommand cmd = new SqlCommand(query, con);
+        //        SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
+        //        adaptador.Fill(dt);
+        //    }
+        //    return dt;
+        //}
+
         public DataTable Listar()
         {
             DataTable dt = new DataTable();
             using (SqlConnection con = Connection.GetConexion())
             {
-                // Solo traemos los Activos (Ocultamos los borrados lógicamente)
+                // IMPORTANTE: Agregamos "WHERE status = 'Activo'"
+                // Así la lista ignorará a los que acabas de borrar.
                 string query = "SELECT * FROM Actor WHERE status = 'Activo'";
+
                 SqlCommand cmd = new SqlCommand(query, con);
                 SqlDataAdapter adaptador = new SqlDataAdapter(cmd);
                 adaptador.Fill(dt);
             }
             return dt;
+
         }
 
         // 2. MÉTODO CREAR (CREATE)
         public bool Create(string nombre, string apellidoP, string apellidoM, DateTime fechaNac, string nacionalidad)
         {
+            //using (SqlConnection con = Connection.GetConexion())
+            //{
+            //    // Usamos parámetros para evitar inyección SQL
+            //    // Nota: No enviamos 'status' ni 'dateCreate' porque tu base de datos ya los pone solos (Defaults)
+            //    string query = "INSERT INTO Actor (nombre, apellidoP, apellidoM, fechaNacimiento, nacionalidad, idUserCreate) " +
+            //                   "VALUES (@nombre, @apellidoP, @apellidoM, @fechaNac, @nacionalidad, @idUser)";
+
+            //    SqlCommand cmd = new SqlCommand(query, con);
+            //    cmd.Parameters.AddWithValue("@nombre", nombre);
+            //    cmd.Parameters.AddWithValue("@apellidoP", apellidoP);
+            //    cmd.Parameters.AddWithValue("@apellidoM", apellidoM);
+            //    cmd.Parameters.AddWithValue("@fechaNac", fechaNac);
+            //    cmd.Parameters.AddWithValue("@nacionalidad", nacionalidad);
+            //    cmd.Parameters.AddWithValue("@idUser", UserSession.Id); // Auditoría automática desde C#
+
+            //    int filas = cmd.ExecuteNonQuery();
+            //    return filas > 0;
+            //}
             using (SqlConnection con = Connection.GetConexion())
             {
-                // Usamos parámetros para evitar inyección SQL
-                // Nota: No enviamos 'status' ni 'dateCreate' porque tu base de datos ya los pone solos (Defaults)
                 string query = "INSERT INTO Actor (nombre, apellidoP, apellidoM, fechaNacimiento, nacionalidad, idUserCreate) " +
                                "VALUES (@nombre, @apellidoP, @apellidoM, @fechaNac, @nacionalidad, @idUser)";
 
@@ -42,10 +75,9 @@ namespace CinemaSystem.Logic
                 cmd.Parameters.AddWithValue("@apellidoM", apellidoM);
                 cmd.Parameters.AddWithValue("@fechaNac", fechaNac);
                 cmd.Parameters.AddWithValue("@nacionalidad", nacionalidad);
-                cmd.Parameters.AddWithValue("@idUser", UserSession.Id); // Auditoría automática desde C#
+                cmd.Parameters.AddWithValue("@idUser", UserSession.Id);
 
-                int filas = cmd.ExecuteNonQuery();
-                return filas > 0;
+                return cmd.ExecuteNonQuery() > 0;
             }
         }
 

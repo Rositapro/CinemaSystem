@@ -104,7 +104,7 @@ namespace CinemaSystem.Presentation
 
                 if (exito)
                 {
-                    MessageBox.Show("Actor actualizado correctamente.");
+                    MessageBox.Show("Actor modificado correctamente.");
                     CargarDatos();
                     Limpiar();
                 }
@@ -169,11 +169,7 @@ namespace CinemaSystem.Presentation
 
         private void ibtnReturn_Click(object sender, EventArgs e)
         {
-            //frmMainMenu menu = new frmMainMenu();
-            //this.Hide();
-            //menu.Show();
-            this.Close(); // Cierra esta ventana
-
+         
             // Busca el Menú Principal entre las ventanas abiertas (aunque esté oculto)
             foreach (Form frm in Application.OpenForms)
             {
