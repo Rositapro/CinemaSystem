@@ -58,5 +58,21 @@ namespace CinemaSystem
             // 4. Al cerrar la otra, mostramos el menú de nuevo
             this.Show();
         }
+
+        private void btnGestorUniversal_Click(object sender, EventArgs e)
+        {
+            // 1. Ocultamos este menú
+            this.Hide();
+
+            // 2. Creamos la instancia de la OTRA ventana (el CRUD)
+            // Asegúrate de que tienes otro archivo llamado frmActorManager.cs en la carpeta Presentation
+            Presentation.frmUniversalManager universal = new Presentation.frmUniversalManager();
+
+            // 3. La mostramos
+            universal.ShowDialog();
+
+            // 4. Al cerrar la otra, mostramos el menú de nuevo
+            this.Show();
+        }
     }
 }
