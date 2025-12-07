@@ -119,62 +119,66 @@ namespace CinemaSystem.Presentation
 
         private void ibtnApplyFilter_Click(object sender, EventArgs e)
         {
+            // Si no hay datos cargados, no hacemos nada
             if (_bs.DataSource == null) return;
 
-            string filtroFinal = "";
             List<string> filtros = new List<string>();
 
-            // 1. Filtro de Texto
+            // A. Filtro de Texto (Buscador)
             string texto = txtFiltro.Text.Trim();
             if (!string.IsNullOrEmpty(texto))
             {
-                // Busca coincidencias en cualquier columna de texto
                 string filtroTexto = "";
+                // Recorremos las columnas para ver cuáles son de texto
                 foreach (DataGridViewColumn col in dgvReportes.Columns)
                 {
                     if (col.ValueType == typeof(string))
                     {
                         if (filtroTexto.Length > 0) filtroTexto += " OR ";
-                        // Evitamos inyección en el filtro local escapando la comilla simple
+                        // Creamos la regla: Columna LIKE '%texto%'
                         filtroTexto += $"[{col.Name}] LIKE '%{texto.Replace("'", "''")}%'";
                     }
                 }
                 if (filtroTexto.Length > 0) filtros.Add($"({filtroTexto})");
             }
 
-            // 2. Filtro de Fechas
+            // B. Filtro de Fechas (Solo si el CheckBox está marcado)
             if (chkFechas.Checked)
             {
-                string colFecha = BuscarColumnaFecha();
+                string colFecha = BuscarColumnaFecha(); // Método inteligente que halla la columna
                 if (!string.IsNullOrEmpty(colFecha))
                 {
-                    string fechaInicio = dtpInicio.Value.ToString("MM/dd/yyyy");
+                    string fechaInicio = dtpInicio.Value.ToString("MM/dd/yyyy"); // Formato estándar
                     string fechaFin = dtpFin.Value.ToString("MM/dd/yyyy");
-                    filtros.Add($"[{colFecha}] >= '{fechaInicio}' AND [{colFecha}] <= '{fechaFin}'");
+
+                    // CORRECCIÓN AQUÍ: Usamos # en lugar de ' para fechas
+                    // Esto le dice al sistema que son fechas reales y no texto
+                    filtros.Add($"[{colFecha}] >= #{fechaInicio}# AND [{colFecha}] <= #{fechaFin}#");
                 }
                 else
                 {
-                    MessageBox.Show("Este reporte no tiene columnas de fecha para filtrar.");
+                    MessageBox.Show("Este reporte no tiene columnas de fecha, no se puede filtrar por tiempo.");
                     chkFechas.Checked = false;
                 }
             }
 
-            // 3. Aplicar al Grid
+            // C. Aplicar al Grid
             if (filtros.Count > 0)
             {
-                filtroFinal = string.Join(" AND ", filtros);
                 try
                 {
-                    _bs.Filter = filtroFinal;
+                    // Unimos todos los filtros con AND
+                    _bs.Filter = string.Join(" AND ", filtros);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo aplicar el filtro: " + ex.Message);
+                    MessageBox.Show("No se pudo filtrar: " + ex.Message);
+                    _bs.RemoveFilter();
                 }
             }
             else
             {
-                _bs.RemoveFilter();
+                _bs.RemoveFilter(); // Si no hay filtros, mostrar todo
             }
         }
 
