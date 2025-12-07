@@ -28,20 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ibtn = new FontAwesome.Sharp.IconButton();
             btnActores = new Button();
+            btnReports = new Button();
             SuspendLayout();
-            // 
-            // ibtn
-            // 
-            ibtn.IconChar = FontAwesome.Sharp.IconChar.FileCsv;
-            ibtn.IconColor = Color.Black;
-            ibtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtn.Location = new Point(12, 385);
-            ibtn.Name = "ibtn";
-            ibtn.Size = new Size(55, 53);
-            ibtn.TabIndex = 1;
-            ibtn.UseVisualStyleBackColor = true;
             // 
             // btnActores
             // 
@@ -55,13 +44,26 @@
             btnActores.UseVisualStyleBackColor = false;
             btnActores.Click += btnActores_Click;
             // 
+            // btnReports
+            // 
+            btnReports.BackColor = Color.FromArgb(128, 128, 255);
+            btnReports.Font = new Font("Yu Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnReports.Location = new Point(271, 193);
+            btnReports.Name = "btnReports";
+            btnReports.Size = new Size(209, 48);
+            btnReports.TabIndex = 4;
+            btnReports.Text = "Gestor de reportes";
+            btnReports.UseVisualStyleBackColor = false;
+            btnReports.Click += btnReports_Click;
+            // 
             // frmMainMenu
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(192, 192, 255);
             ClientSize = new Size(800, 450);
+            Controls.Add(btnReports);
             Controls.Add(btnActores);
-            Controls.Add(ibtn);
             Name = "frmMainMenu";
             Text = "frmMainMenu";
             Load += frmMainMenu_Load;
@@ -69,7 +71,7 @@
         }
 
         #endregion
-        private FontAwesome.Sharp.IconButton ibtn;
         private Button btnActores;
+        private Button btnReports;
     }
 }

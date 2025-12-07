@@ -116,7 +116,7 @@
             Controls.Add(txtPassword);
             Controls.Add(txtUsuario);
             Name = "frmLogin";
-            Text = "Form1";
+            Text = "FrmLogin";
             ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)iconPictureBox2).EndInit();
             ResumeLayout(false);
