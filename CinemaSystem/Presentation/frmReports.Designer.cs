@@ -33,6 +33,7 @@
             dgvReportes = new DataGridView();
             ibtnExportCsv = new FontAwesome.Sharp.IconButton();
             ibtnReturn = new FontAwesome.Sharp.IconButton();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvReportes).BeginInit();
             SuspendLayout();
             // 
@@ -40,7 +41,7 @@
             // 
             cmbReportes.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbReportes.FormattingEnabled = true;
-            cmbReportes.Location = new Point(153, 109);
+            cmbReportes.Location = new Point(112, 102);
             cmbReportes.Name = "cmbReportes";
             cmbReportes.Size = new Size(182, 33);
             cmbReportes.TabIndex = 0;
@@ -49,9 +50,9 @@
             // 
             btnGenerar.BackColor = Color.FromArgb(128, 128, 255);
             btnGenerar.Font = new Font("Yu Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnGenerar.Location = new Point(153, 171);
+            btnGenerar.Location = new Point(112, 153);
             btnGenerar.Name = "btnGenerar";
-            btnGenerar.Size = new Size(209, 48);
+            btnGenerar.Size = new Size(182, 48);
             btnGenerar.TabIndex = 4;
             btnGenerar.Text = "Generar reportes";
             btnGenerar.UseVisualStyleBackColor = false;
@@ -91,12 +92,23 @@
             ibtnReturn.UseVisualStyleBackColor = false;
             ibtnReturn.Click += ibtnReturn_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Yu Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(12, 109);
+            label1.Name = "label1";
+            label1.Size = new Size(94, 26);
+            label1.TabIndex = 29;
+            label1.Text = "Reportes";
+            // 
             // frmReports
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 192, 255);
             ClientSize = new Size(1261, 621);
+            Controls.Add(label1);
             Controls.Add(ibtnReturn);
             Controls.Add(ibtnExportCsv);
             Controls.Add(dgvReportes);
@@ -107,6 +119,7 @@
             Load += frmReports_Load;
             ((System.ComponentModel.ISupportInitialize)dgvReportes).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -116,5 +129,6 @@
         private DataGridView dgvReportes;
         private FontAwesome.Sharp.IconButton ibtnExportCsv;
         private FontAwesome.Sharp.IconButton ibtnReturn;
+        private Label label1;
     }
 }

@@ -16,6 +16,7 @@ namespace CinemaSystem.Presentation
     {
         // Instanciamos la lógica una sola vez para usarla en todo el form
         private ActorLogic _logic = new ActorLogic();
+
         public frmActorManage()
         {
             InitializeComponent();

@@ -43,18 +43,7 @@ namespace CinemaSystem.Presentation
         }
         private void ibtnReturn_Click(object sender, EventArgs e)
         {
-            //this.Close(); // Cerramos Actores
-
-            //// Buscamos el menú principal que está oculto y lo mostramos
-            //foreach (Form frm in Application.OpenForms)
-            //{
-            //    if (frm is frmReports)
-            //    {
-            //        frm.Show();
-            //        break;
-            //    }
-            //}
-
+            
             this.Close();
             foreach (Form frm in Application.OpenForms)
             {
@@ -83,8 +72,6 @@ namespace CinemaSystem.Presentation
 
         private void ibtnExportCsv_Click(object sender, EventArgs e)
         {
-            // Reutilizamos tu clase Exportador existente
-            // Asegúrate de tener la clase Exportador.cs en Logic (te la di en el paso del Login)
             Exporter.ExportarACSV(dgvReportes);
         }
     }
