@@ -66,6 +66,9 @@ namespace CinemaSystem.Presentation
             dgvData.AllowUserToAddRows = true;
             dgvData.AllowUserToDeleteRows = true;
 
+            // (He eliminado la parte que agregaba botones automáticos dentro de la tabla
+            //  porque ahora usarás tu propio botón externo 'ibtnDelete')
+
             foreach (DataGridViewColumn col in dgvData.Columns)
             {
                 string nombre = col.Name.ToLower();
@@ -142,7 +145,43 @@ namespace CinemaSystem.Presentation
 
         private void ibtnDelete_Click(object sender, EventArgs e)
         {
+            // 1. Validar que el usuario haya seleccionado una celda o fila
+            if (dgvData.CurrentRow == null)
+            {
+                MessageBox.Show("Por favor, selecciona primero la fila que quieres inhabilitar.", "Selección Requerida", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            // 2. Preguntar confirmación para evitar clics accidentales
+            if (MessageBox.Show("¿Estás seguro de inhabilitar el registro seleccionado?", "Confirmar Baja", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                try
+                {
+                    // 3. Obtener la fila seleccionada actualmente
+                    DataGridViewRow row = dgvData.CurrentRow;
+
+                    // 4. Verificar si la tabla tiene columna 'status'
+                    if (dgvData.Columns.Contains("status"))
+                    {
+                        // Escribimos "Inhabilitado" en la celda status (aunque esté gris/bloqueada visualmente, por código sí se puede)
+                        row.Cells["status"].Value = "Inhabilitado";
+
+                        // Opcional: Si tienes columna de usuario modificador, actualízala también
+                        if (dgvData.Columns.Contains("idUserModify"))
+                            row.Cells["idUserModify"].Value = 1; // Tu ID de usuario
+
+                        MessageBox.Show("Fila marcada como 'Inhabilitado'.\n\n¡No olvides dar clic en GUARDAR para confirmar!", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esta tabla no tiene campo 'status', no se puede inhabilitar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrió un error al intentar inhabilitar: " + ex.Message);
+                }
+            }
         }
     }
 }
