@@ -44,6 +44,7 @@ namespace CinemaSystem.Logic
             return dt;
         }
 
+
         // 3. Guardar cambios masivos (La Magia)
         public void GuardarCambios(DataTable dt, string nombreTabla)
         {
