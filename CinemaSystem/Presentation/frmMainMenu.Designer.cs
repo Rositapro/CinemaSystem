@@ -28,30 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnActores = new Button();
             btnReports = new Button();
             btnGestorUniversal = new Button();
+            label1 = new Label();
             SuspendLayout();
-            // 
-            // btnActores
-            // 
-            btnActores.BackColor = Color.FromArgb(128, 128, 255);
-            btnActores.Font = new Font("Yu Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnActores.Location = new Point(271, 139);
-            btnActores.Name = "btnActores";
-            btnActores.Size = new Size(209, 48);
-            btnActores.TabIndex = 3;
-            btnActores.Text = "Gestión de Actores";
-            btnActores.UseVisualStyleBackColor = false;
-            btnActores.Click += btnActores_Click;
             // 
             // btnReports
             // 
             btnReports.BackColor = Color.FromArgb(128, 128, 255);
             btnReports.Font = new Font("Yu Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnReports.Location = new Point(271, 193);
+            btnReports.Location = new Point(138, 196);
             btnReports.Name = "btnReports";
-            btnReports.Size = new Size(209, 48);
+            btnReports.Size = new Size(209, 47);
             btnReports.TabIndex = 4;
             btnReports.Text = "Gestor de reportes";
             btnReports.UseVisualStyleBackColor = false;
@@ -61,32 +49,43 @@
             // 
             btnGestorUniversal.BackColor = Color.FromArgb(128, 128, 255);
             btnGestorUniversal.Font = new Font("Yu Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnGestorUniversal.Location = new Point(271, 247);
+            btnGestorUniversal.Location = new Point(138, 143);
             btnGestorUniversal.Name = "btnGestorUniversal";
-            btnGestorUniversal.Size = new Size(209, 48);
+            btnGestorUniversal.Size = new Size(209, 47);
             btnGestorUniversal.TabIndex = 5;
             btnGestorUniversal.Text = "Gestor universal";
             btnGestorUniversal.UseVisualStyleBackColor = false;
             btnGestorUniversal.Click += btnGestorUniversal_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Yu Gothic", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(198, 96);
+            label1.Name = "label1";
+            label1.Size = new Size(65, 26);
+            label1.TabIndex = 30;
+            label1.Text = "Menu";
             // 
             // frmMainMenu
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 192, 255);
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(490, 433);
+            Controls.Add(label1);
             Controls.Add(btnGestorUniversal);
             Controls.Add(btnReports);
-            Controls.Add(btnActores);
             Name = "frmMainMenu";
             Text = "frmMainMenu";
             Load += frmMainMenu_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-        private Button btnActores;
         private Button btnReports;
         private Button btnGestorUniversal;
+        private Label label1;
     }
 }

@@ -44,6 +44,7 @@ namespace CinemaSystem.Presentation
         }
         private void CargarListaTablas()
         {
+
             try
             {
                 List<string> tablas = _logic.ObtenerTablas();
@@ -87,11 +88,18 @@ namespace CinemaSystem.Presentation
                 }
             }
         }
-
         private void ibtnSave_Click(object sender, EventArgs e)
         {
             try
             {
+                // --- CORRECCIÓN DE SEGURIDAD ---
+                // Forzamos a la grilla a terminar cualquier edición pendiente antes de guardar
+                dgvData.EndEdit();
+                // Si había una celda en modo edición (cursor parpadeando), esto confirma el valor.
+                if (_tablaActual != null)
+                    BindingContext[_tablaActual].EndCurrentEdit();
+
+
                 if (cmbTablas.SelectedItem == null) return;
                 string tablaSeleccionada = cmbTablas.SelectedItem.ToString();
 
@@ -157,18 +165,22 @@ namespace CinemaSystem.Presentation
             {
                 try
                 {
-                    // 3. Obtener la fila seleccionada actualmente
-                    DataGridViewRow row = dgvData.CurrentRow;
+                    // --- CORRECCIÓN IMPORTANTE ---
+                    // En lugar de editar la celda visual (DataGridViewRow), editamos la FUENTE DE DATOS (DataRow).
+                    // Esto asegura que el DataTable marque la fila como 'Modified' inmediatamente.
+
+                    DataRowView dataRowView = (DataRowView)dgvData.CurrentRow.DataBoundItem;
+                    DataRow row = dataRowView.Row;
 
                     // 4. Verificar si la tabla tiene columna 'status'
-                    if (dgvData.Columns.Contains("status"))
+                    if (row.Table.Columns.Contains("status"))
                     {
-                        // Escribimos "Inhabilitado" en la celda status (aunque esté gris/bloqueada visualmente, por código sí se puede)
-                        row.Cells["status"].Value = "Inhabilitado";
+                        // Escribimos directamente en la tabla de datos
+                        row["status"] = "Inhabilitado";
 
-                        // Opcional: Si tienes columna de usuario modificador, actualízala también
-                        if (dgvData.Columns.Contains("idUserModify"))
-                            row.Cells["idUserModify"].Value = 1; // Tu ID de usuario
+                        // Opcional: Si tienes columna de usuario modificador
+                        if (row.Table.Columns.Contains("idUserModify"))
+                            row["idUserModify"] = 1; // Tu ID de usuario
 
                         MessageBox.Show("Fila marcada como 'Inhabilitado'.\n\n¡No olvides dar clic en GUARDAR para confirmar!", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -183,5 +195,6 @@ namespace CinemaSystem.Presentation
                 }
             }
         }
+        
     }
 }

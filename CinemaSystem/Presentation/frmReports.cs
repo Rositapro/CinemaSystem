@@ -56,7 +56,7 @@ namespace CinemaSystem.Presentation
 
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-           try
+            try
             {
                 string seleccion = cmbReportes.SelectedItem.ToString();
                 string vistaSql = _mapaReportes[seleccion];
@@ -71,7 +71,7 @@ namespace CinemaSystem.Presentation
                 {
                     MessageBox.Show("No se encontraron datos para este reporte.");
                 }
-                
+
                 // --- CONFIGURACIÓN DE SOLO LECTURA ---
                 dgvReportes.ReadOnly = true; // ¡Nadie puede editar!
                 dgvReportes.SelectionMode = DataGridViewSelectionMode.FullRowSelect; // Se selecciona toda la fila al dar clic
@@ -114,7 +114,7 @@ namespace CinemaSystem.Presentation
         }
         private void ibtnExportCsv_Click(object sender, EventArgs e)
         {
-            Exporter.ExportarACSV(dgvReportes);
+            Exporter.ExportarCSV(dgvReportes);
         }
 
         private void ibtnApplyFilter_Click(object sender, EventArgs e)
@@ -189,12 +189,10 @@ namespace CinemaSystem.Presentation
             _bs.RemoveFilter(); // Quita todos los filtros y muestra todo
         }
 
-        // Método auxiliar para hallar columnas de fecha
         private string BuscarColumnaFecha()
         {
             foreach (DataGridViewColumn col in dgvReportes.Columns)
             {
-                // Busca columnas tipo DateTime o que se llamen "Fecha..." o "...Date"
                 if (col.ValueType == typeof(DateTime) || col.Name.ToLower().Contains("fecha") || col.Name.ToLower().Contains("date"))
                 {
                     return col.Name;
@@ -203,5 +201,19 @@ namespace CinemaSystem.Presentation
             return "";
         }
 
+        private void ibtnExportHtml_Click(object sender, EventArgs e)
+        {
+            Exporter.ExportarHTML(dgvReportes);
+        }
+
+        private void ibtnExportJson_Click(object sender, EventArgs e)
+        {
+            Exporter.ExportarJSON(dgvReportes);
+        }
+
+        private void ibtnExportXls_Click(object sender, EventArgs e)
+        {
+            Exporter.ExportarExcel(dgvReportes);
+        }
     }
 }
