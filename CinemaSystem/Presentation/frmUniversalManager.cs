@@ -92,6 +92,28 @@ namespace CinemaSystem.Presentation
                 if (cmbTablas.SelectedItem == null) return;
                 string tablaSeleccionada = cmbTablas.SelectedItem.ToString();
 
+                // --- CORRECCIÓN: AUTO-COMPLETADO DE AUDITORÍA ---
+                // Iteramos sobre las filas para detectar las NUEVAS y asignarles valores por defecto
+                // ya que están bloqueadas en la interfaz visual.
+                foreach (DataRow row in _tablaActual.Rows)
+                {
+                    // Solo actuamos si la fila es NUEVA (recién agregada)
+                    if (row.RowState == DataRowState.Added)
+                    {
+                        // 1. Asignar Status Activo por defecto si la columna existe
+                        if (_tablaActual.Columns.Contains("status"))
+                            row["status"] = "Activo";
+
+                        // 2. Asignar Fecha de Creación actual si la columna existe
+                        if (_tablaActual.Columns.Contains("dateCreate"))
+                            row["dateCreate"] = DateTime.Now;
+
+                        // 3. Asignar Usuario Creador (Usamos 1 por defecto o el ID del admin)
+                        if (_tablaActual.Columns.Contains("idUserCreate"))
+                            row["idUserCreate"] = 1;
+                    }
+                }
+
                 if (_tablaActual.GetChanges() != null)
                 {
                     _logic.GuardarCambios(_tablaActual, tablaSeleccionada);
@@ -116,6 +138,11 @@ namespace CinemaSystem.Presentation
             {
                 if (frm is frmMainMenu) { frm.Show(); break; }
             }
+        }
+
+        private void ibtnDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

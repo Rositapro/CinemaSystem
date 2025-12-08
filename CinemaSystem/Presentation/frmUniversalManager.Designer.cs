@@ -32,9 +32,8 @@
             btnLoad = new Button();
             dgvData = new DataGridView();
             ibtnSave = new FontAwesome.Sharp.IconButton();
-            ibtnUpdate = new FontAwesome.Sharp.IconButton();
-            ibtnDelete = new FontAwesome.Sharp.IconButton();
             ibtnReturn = new FontAwesome.Sharp.IconButton();
+            ibtnDelete = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)dgvData).BeginInit();
             SuspendLayout();
             // 
@@ -80,28 +79,6 @@
             ibtnSave.UseVisualStyleBackColor = true;
             ibtnSave.Click += ibtnSave_Click;
             // 
-            // ibtnUpdate
-            // 
-            ibtnUpdate.IconChar = FontAwesome.Sharp.IconChar.Pen;
-            ibtnUpdate.IconColor = Color.Black;
-            ibtnUpdate.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnUpdate.Location = new Point(138, 423);
-            ibtnUpdate.Name = "ibtnUpdate";
-            ibtnUpdate.Size = new Size(53, 59);
-            ibtnUpdate.TabIndex = 23;
-            ibtnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // ibtnDelete
-            // 
-            ibtnDelete.IconChar = FontAwesome.Sharp.IconChar.Trash;
-            ibtnDelete.IconColor = Color.Black;
-            ibtnDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtnDelete.Location = new Point(197, 423);
-            ibtnDelete.Name = "ibtnDelete";
-            ibtnDelete.Size = new Size(53, 59);
-            ibtnDelete.TabIndex = 24;
-            ibtnDelete.UseVisualStyleBackColor = true;
-            // 
             // ibtnReturn
             // 
             ibtnReturn.BackColor = Color.FromArgb(128, 128, 255);
@@ -115,14 +92,25 @@
             ibtnReturn.UseVisualStyleBackColor = false;
             ibtnReturn.Click += ibtnReturn_Click;
             // 
+            // ibtnDelete
+            // 
+            ibtnDelete.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            ibtnDelete.IconColor = Color.Black;
+            ibtnDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtnDelete.Location = new Point(138, 423);
+            ibtnDelete.Name = "ibtnDelete";
+            ibtnDelete.Size = new Size(53, 59);
+            ibtnDelete.TabIndex = 29;
+            ibtnDelete.UseVisualStyleBackColor = true;
+            ibtnDelete.Click += ibtnDelete_Click;
+            // 
             // frmUniversalManager
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1230, 618);
-            Controls.Add(ibtnReturn);
             Controls.Add(ibtnDelete);
-            Controls.Add(ibtnUpdate);
+            Controls.Add(ibtnReturn);
             Controls.Add(ibtnSave);
             Controls.Add(dgvData);
             Controls.Add(btnLoad);
@@ -140,8 +128,7 @@
         private Button btnLoad;
         private DataGridView dgvData;
         private FontAwesome.Sharp.IconButton ibtnSave;
-        private FontAwesome.Sharp.IconButton ibtnUpdate;
-        private FontAwesome.Sharp.IconButton ibtnDelete;
         private FontAwesome.Sharp.IconButton ibtnReturn;
+        private FontAwesome.Sharp.IconButton ibtnDelete;
     }
 }
